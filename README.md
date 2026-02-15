@@ -34,3 +34,55 @@
 
 
 <img width="314" height="163" alt="plugable database " src="https://github.com/user-attachments/assets/e673ef65-7251-493c-bf4c-861bb9b0674c" />
+
+-- Create PDB
+SQL> CREATE PLUGGABLE DATABASE er_pdb_2024101
+  2  ADMIN USER eric_plsqlacua_2024101 IDENTIFIED BY 'SimplePass123'
+  3  FILE_NAME_CONVERT = ('C:\ORCL\ORA14\ORCL12\ORBSERVER', 
+                         'C:\ORCL\ORA14\ORCL12\ORBSERVER');
+
+Pluggable database created.
+
+-- Open PDB
+SQL> ALTER PLUGGABLE DATABASE er_pdb_2024101 OPEN;
+
+Pluggable database altered.
+
+-- Verify PDB is open
+SQL> SELECT name, open_mode FROM v$pdbs WHERE name = 'ER_PDB_2024101';
+
+NAME           OPEN_MODE
+-------------- ----------
+ER_PDB_2024101 READ WRITE
+
+-- Create temporary PDB
+SQL> CREATE PLUGGABLE DATABASE er_to_delete_pdb_2024101
+  2  ADMIN USER temp_admin IDENTIFIED BY 'TempPass123'
+  3  FILE_NAME_CONVERT = ('C:\ORCL\ORA14\ORCL12\ORBSERVER',
+                         'C:\ORCL\ORA14\ORCL12\ORBSERVER');
+
+Pluggable database created.
+
+-- Open temp PDB
+SQL> ALTER PLUGGABLE DATABASE er_to_delete_pdb_2024101 OPEN;
+
+Pluggable database altered.
+
+-- Delete temp PDB
+SQL> ALTER PLUGGABLE DATABASE er_to_delete_pdb_2024101 CLOSE IMMEDIATE;
+SQL> DROP PLUGGABLE DATABASE er_to_delete_pdb_2024101 INCLUDING DATAFILES;
+
+Pluggable database dropped.
+
+-- Verify deletion
+SQL> SELECT name FROM v$pdbs WHERE name = 'ER_TO_DELETE_PDB_2024101';
+
+no rows selected
+
+-- Check OEM port
+SQL> SELECT dbms_xdb_config.gethttpsport FROM dual;
+
+GETHTTPPSPORT
+-------------
+         5500
+         
