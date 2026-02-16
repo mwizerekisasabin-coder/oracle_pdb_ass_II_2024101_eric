@@ -35,6 +35,12 @@
 
 <img width="314" height="163" alt="plugable database " src="https://github.com/user-attachments/assets/e673ef65-7251-493c-bf4c-861bb9b0674c" />
 
+
+
+<img width="839" height="524" alt="cdb dashbrood" src="https://github.com/user-attachments/assets/126d0ead-d12f-478b-ad5e-f5489f1d682a" />
+
+
+
 -- Create PDB
 SQL> CREATE PLUGGABLE DATABASE er_pdb_2024101
   2  ADMIN USER eric_plsqlacua_2024101 IDENTIFIED BY 'SimplePass123'
